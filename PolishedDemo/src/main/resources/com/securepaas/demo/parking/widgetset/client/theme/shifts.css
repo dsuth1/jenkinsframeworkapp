@@ -1,0 +1,74 @@
+@external v-ui, shifts, v-csslayout, shiftstable, shiftsfilter, v-table-sort-indicator, v-table-caption-container, v-table-header-wrap, v-table-cell-content, v-table-row, v-table-row-odd, v-table-cell-wrapper, v-table-header, v-table-resizer, v-table-body-wrapper, v-table-body, editfiltersbutton, filtersview, v-touchkit-navbutton, v-table-header-cell-asc, v-table-header-cell-desc;
+
+/*
+ * Shifts view
+ */
+.shifts .v-csslayout {
+	padding: 0;
+}
+
+.shifts .shiftstable {
+	width: 100%;
+	float: left;
+}
+
+.shifts .editfiltersbutton {
+	margin-bottom: 0;
+}
+.editfiltersbutton .v-touchkit-navbutton:active{
+	background: #fff;
+	color: #64635a;
+	text-shadow: none;
+}
+
+.v-ui[width-range~="801px-"] .shifts .shiftstable {
+    width: 65% !important;
+}
+
+.shifts .shiftsfilter {
+	width: 100%;
+	float: left;
+	display: none;
+}
+
+.shifts .filtersview .shiftsfilter {
+	display: block;
+}
+
+.v-ui[width-range~="801px-"] .shifts .shiftsfilter {
+    width: 35%;
+    display: block;
+}
+
+.v-ui[width-range~="801px-"] .shifts .editfiltersbutton {
+	display: none;
+}
+
+
+/*
+ * Table style
+ */
+.shifts .v-table-caption-container {
+	line-height: 42px;
+}
+
+.shifts .v-table-sort-indicator {
+	line-height: 42px;
+}
+
+.shifts .v-table-header-wrap,
+.shifts .v-table-header {
+    height: auto;
+}
+
+.shifts .v-table-resizer {
+	height: 43px;
+}
+
+.shifts .v-table-body-wrapper {
+	overflow-x: hidden !important;
+}
+
+.shifts .v-table-body {
+	border: 1px solid #aaa;
+}

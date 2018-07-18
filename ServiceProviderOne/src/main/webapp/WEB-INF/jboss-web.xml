@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>ServiceProviderOne</context-root>
+</jboss-web>

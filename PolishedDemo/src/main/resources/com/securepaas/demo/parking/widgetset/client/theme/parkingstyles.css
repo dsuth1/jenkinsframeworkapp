@@ -1,0 +1,141 @@
+@external v-button-caption, v-button-icon-only, v-label, shiftstab, maptab, ticketstab, statstab, v-caption, v-captiontext, v-button-caption, v-button-wrap, v-touchkit-tabbar, v-touchkit-tabbar-wrapper, v-touchkit-tabbar-toolbar, v-button, selected, v-ui, v-csslayout, v-touchkit-navbar-caption, parkingbutton, blue, textcentered, v-touchkit-navpanel-container, v-app, v-touchkit-offlinemode, v-touchkit-navbar-left, v-touchkit-navbar, v-qrcode, v-window-contents, v-window-closebox, qr-code, v-touchkit-toolbar, v-touchkit-navbutton-back, v-touchkit-navbutton, v-touchkit-popover, v-scrollable; 
+
+@def darkText #3d3f41;
+
+.v-button-icon-only {
+	width: 37px;
+	padding: 0;
+	margin-top: -90px;
+	right:1px;
+	position:absolute;
+	border: 1px #777777 solid;
+}
+
+.v-ui[width-range~="801px-"] .v-button-icon-only {
+	margin-top: -44px;
+}
+
+.v-button-icon-only .v-button-caption {
+	display: none;
+}
+
+.v-app,
+.v-touchkit-navpanel-container,
+.v-touchkit-offlinemode {
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f9f9f6), to(#ebebe8));
+}
+
+a {
+	color: #00b4f0 !important;
+	text-decoration: none;
+}
+
+/* Set button icons using css */
+.v-touchkit-toolbar {
+   font-family: parkingFont;
+}
+.v-touchkit-tabbar-toolbar .ticketstab:before {
+	content: "\e003";
+}
+
+.v-touchkit-tabbar-toolbar .maptab:before {
+	content: "\e007";
+}
+
+.v-touchkit-tabbar-toolbar .shiftstab:before {
+	content: "\e002";
+}
+
+.v-touchkit-tabbar-toolbar .statstab:before {
+	content: "\e00C";
+}
+
+/* Hack to have buttons grouped in the center instead of expanding
+to fill all the width */
+.v-touchkit-tabbar-toolbar .v-button {
+	width: 80px !important;
+	height: 100% !important;
+	position: absolute !important;
+	left: 50%;
+}
+.v-touchkit-tabbar-toolbar .v-button.ticketstab {
+	border-left: 1px solid #e7e7e7;
+}
+.v-touchkit-tabbar-toolbar .v-button.ticketstab {
+	margin-left: -160px;
+}
+.v-touchkit-tabbar-toolbar .v-button.maptab {
+	margin-left: -80px;
+}
+.v-touchkit-tabbar-toolbar .v-button.statstab {
+	margin-left: 80px;
+	border-right: 1px solid #e7e7e7;
+}
+
+.parkingbutton {
+	outline: none;
+}
+
+.blue {
+	color: #00b4f0;
+}
+
+.textcentered {
+	text-align: center;
+}
+
+/*
+ * Components
+ */
+select {
+	outline: none;
+}
+
+/* QR code popup */
+.v-app .qr-code {
+	background: transparent;
+	color: #fff;
+}
+
+.qr-code .v-label {
+	text-align: center;
+}
+
+.qr-code .v-window-contents {
+	background: transparent;
+}
+
+.qr-code .v-window-closebox {
+	top: auto;
+	bottom: 14px;
+	right: auto;
+	left: 190px;
+	background: transparent;
+	width: auto;
+	height: auto;
+	padding: .3em 0;
+	border-bottom: 1px solid #FFF;
+	z-index: 100;
+}
+
+.qr-code .v-window-closebox:before {
+	/*content: "Let's get started";*/
+}
+
+.qr-code .v-caption {
+    float: right;
+    width: 310px;
+}
+
+.v-app .qr-code .v-captiontext {
+    color: #fff;
+    font-weight: bold;
+    line-height: 1.4;
+    margin: 0;
+    white-space: normal;
+}
+
+.qr-code .v-qrcode {
+	-webkit-box-shadow: 0 2px 8px #000;
+	box-shadow: 0 2px 8px #000;
+}

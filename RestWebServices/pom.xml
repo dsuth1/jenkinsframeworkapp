@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>com.securepaas.demo</groupId>
+		<artifactId>demo-apps</artifactId>
+		<version>0.8-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>RestWebServices</artifactId>
+	<packaging>war</packaging>
+	<name>Rest Web Services</name>
+	<description>SecurePaaS Rest Demo Webservice</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>spsource</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+	    <plugins>
+	      <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-war-plugin</artifactId>
+	        <version>2.5</version>
+	        <configuration>
+	          <archive>
+	             <manifestEntries>
+	                <Dependencies>javax.ws.rs.api</Dependencies>
+	             </manifestEntries>
+	          </archive>
+	        </configuration>
+	      </plugin>
+	    </plugins>
+	</build>
+</project>

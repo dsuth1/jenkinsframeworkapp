@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>PolishedDemo</context-root>
+</jboss-web>

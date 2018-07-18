@@ -1,0 +1,2 @@
+# Module com.securepaas.demo.chartplugin.AppWidgetSet
+# RPC service class, partial path of RPC policy file

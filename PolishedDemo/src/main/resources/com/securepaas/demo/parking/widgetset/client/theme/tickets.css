@@ -1,0 +1,267 @@
+@external v-switch, v-datefield, v-datefield-popup, v-datefield-button, v-datefield-textfield, v-select-select, v-textfield, v-ui, tickets, photolayout, informationlayout, noteslayout, tablet, imagepanel, parkingbutton, uploadbutton, removebutton, v-csslayout, v-touchkit-verticalcomponentgroup, buttonslayout, empty, v-button, v-button-wrap, v-button-caption, sectioncaption, storagedtickets, offlineindicator, v-touchkit-switch-wrapper, invalid, photoinnerlayout, parkingbutton-wrap, parkingbutton-caption, onlineindicator, gwt-Label, connection, v-caption, loading, loadinglabel, v-touchkit-tabbar;
+
+.v-textfield, .v-select-select {
+	text-align:right;
+}
+
+.v-switch {
+	position:relative;
+	left:46%;
+}
+
+.v-datefield-popup {
+	border: 1px solid gray;
+	border-radius: 8px;
+    padding: 5px;
+}
+
+.v-datefield {	
+	margin-top:11px;
+}
+
+.v-datefield-button {
+	margin-left: 0px;
+}
+.v-datefield-button:focus {
+	border:0px!important;
+}
+.v-datefield-textfield {
+	width: 98%!important;
+	margin-top: 11px;
+}
+
+.v-select-select:focus, .v-textfield:focus, .v-datefield:focus .v-textfield {
+	box-shadow: inset 0 -3px #00a3e8;
+    outline: none;
+}
+
+/*
+ * Tickets view
+ */
+.tickets .v-touchkit-tabbar {
+	padding-bottom: 0;
+}
+ 
+.tickets .offlineindicator {
+	width: 100%;
+	height: 35px;
+}
+
+.tickets .offlineindicator > div {
+	background: #64635a;
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 35px;
+}
+.tickets .offlineindicator .gwt-Label {
+	float: left;
+	color: #c8c7b5;
+	text-shadow: none;
+	margin-top: 9px;
+	margin-left: 40px;
+	font-size: 18px;
+}
+
+.tickets .offlineindicator.connection .gwt-Label {
+	color: #fff;
+}
+
+.tickets .offlineindicator .gwt-Label:BEFORE {
+	font-family: parkingFont;
+	content: "\e00B";
+	position: relative;
+	left: -5px;
+	top: 4px;
+	font-size: 20px;
+	line-height: 10px;
+}
+.tickets .offlineindicator a {
+	float: right;
+	text-shadow: none;
+	margin-top: 9px;
+	margin-right: 20px;
+	font-size: 18px;
+}
+
+.tickets .sectioncaption {
+	padding: 20px 0 3px 12px;
+	font-size: 14px;
+	color: #cac9b7;
+}
+
+.tickets .photolayout {
+	float: left;
+	width: 100%;
+}
+
+.tickets.tablet .photolayout {
+	width: 50% !important;
+}
+
+.tickets .informationlayout,
+.tickets .noteslayout {
+	float: right;
+	clear: right;
+	width: 100%;
+}
+
+.tickets.tablet .informationlayout,
+.tickets.tablet .noteslayout {
+	width: 50% !important;
+}
+
+.tickets .v-touchkit-verticalcomponentgroup {
+    border: 1px solid #e6e6e6;
+    border-bottom-color: #ccc;
+}
+
+.tickets .noteslayout textarea {
+	border: none;
+	outline: none;
+	font-size: 16px;
+}
+
+.tickets .photoinnerlayout {
+	float: left;
+	width: 100%;
+}
+
+.tickets.tablet .photoinnerlayout {
+	max-height: 366px;
+	min-height: 30px;
+}
+
+.tickets .imagepanel {
+	height: 150px;
+	width: 150px;
+	background-repeat: no-repeat;
+	margin: 5px 20px 5px 0;
+	float: left;
+	background-size: 100%;
+	background-position: center;
+}
+.tickets.tablet .imagepanel {
+	background-position: left top;
+}
+
+.tickets .buttonslayout {
+	padding-left: 20px;
+	padding-right: 10px;
+}
+
+.tickets.tablet .buttonslayout {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background: #fff;
+}
+
+.tickets.tablet .imagepanel {
+	width: 100%;
+	height: 306px;
+}
+
+.tickets .photolayout .parkingbutton {
+	padding: 28px 0;
+	overflow: hidden;
+}
+
+.tickets .photolayout .parkingbutton-wrap {
+	width: 90px;
+	display: inline-block;
+	text-align: left;
+	padding-left: 10px;
+}
+.tickets .photolayout .empty .parkingbutton-wrap {
+	width: 120px;
+}
+.tickets .photolayout .parkingbutton-caption:before {
+	content: "\e000";
+	font-family: parkingFont;
+	position: relative;
+	left: -5px;
+	top: 1px;
+}
+.tickets .photolayout #uploadbutton .parkingbutton-caption:before {
+	content: "\e001";
+}
+
+.tickets #uploadbutton.empty,
+.tickets.tablet .photolayout .parkingbutton {
+	padding: 16px 0px;
+}
+
+.tickets .photolayout .v-csslayout > #removebutton {
+	border-top: 1px solid #e5e5e5;
+}
+
+.tickets.tablet .photolayout .v-csslayout > #removebutton {
+	border-top: none;
+	float: right;
+}
+
+.tickets .buttonslayout input {
+	position: absolute;
+	opacity: 0;
+}
+
+.tickets.tablet .photolayout > div {
+	width: auto;
+	margin-right: 7px;
+}
+.tickets.tablet .informationlayout > div,
+.tickets.tablet .noteslayout > div {
+	width: auto;
+	margin-left: 7px;
+}
+
+.tickets.tablet #uploadbutton {
+	float: left;
+}
+
+.tickets.tablet #uploadbutton.empty {
+	float: none;
+}
+
+.tickets .storagedtickets {
+	background: #00a1d8;
+	color: #fff;
+	font-size: 13px;
+	text-align: center;
+	border: 2px solid #fff;
+	border-radius: 13px;
+	line-height: 20px;
+	top: 0;
+	right: 0;
+	position: absolute;
+}
+
+.tickets .noteslayout {
+	margin-bottom: 46px;
+}
+
+.tickets .invalid > .v-caption {
+	color: #e61e6e !important;
+}
+
+.tickets.loading .loadinglabel {
+	font-family: parkingFont;
+	font-size: 150%;
+	color: #00b4f0;
+	line-height: 40px;
+}
+
+.tickets.loading .loadinglabel:before {
+	color: #a09f91;
+	position: absolute;
+	left: -46px;
+	font-size: 40px;
+	content: "\e004";
+	-webkit-animation-name: spinnerRotate;
+	-webkit-animation-duration: 4s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+	-webkit-transform-origin: 20px;
+}

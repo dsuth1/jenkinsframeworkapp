@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>SoapVaadinDemo</context-root>
+</jboss-web>

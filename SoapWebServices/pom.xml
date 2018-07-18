@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>com.securepaas.demo</groupId>
+		<artifactId>demo-apps</artifactId>
+		<version>0.8-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>SoapWebServices</artifactId>
+	<packaging>war</packaging>
+	<name>SOAP Web Services Demo</name>
+	<description>SecurePaaS Example of SOAP Web Services</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>soap-ws-source</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>spsource</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+	    <plugins>
+	      <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-war-plugin</artifactId>
+	        <version>2.5</version>
+	      </plugin>
+	    </plugins>
+	</build>
+</project>

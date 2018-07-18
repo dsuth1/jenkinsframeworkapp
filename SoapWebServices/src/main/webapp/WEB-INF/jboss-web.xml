@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>SoapWebServices</context-root>
+</jboss-web>
