@@ -1,1 +1,0 @@
-$wnd.com_securepaas_demo_chartplugin_AppWidgetSet.runAsyncCallback2('Pcb(457,1,$Bd);_.vc=function Ufc(){s4b((!l4b&&(l4b=new y4b),l4b),this.b.e)};Aud($h)(2);\n//# sourceURL=com.securepaas.demo.chartplugin.AppWidgetSet-2.js\n')
