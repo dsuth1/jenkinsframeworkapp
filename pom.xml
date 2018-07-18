@@ -18,11 +18,6 @@
 		<module>soap-ws-source</module>
 		<module>SoapWebServices</module>
 		<module>RestWebServices</module>
-		<!--<module>ServiceProviderOne</module>
-		<module>ServiceProviderTwo</module>
-		<module>SimpleServiceProvider</module>
-		<module>SoapVaadinDemo</module>
-		<module>RestVaadinDemo</module>-->
 		<module>PolishedDemo</module>
 	</modules>
 
