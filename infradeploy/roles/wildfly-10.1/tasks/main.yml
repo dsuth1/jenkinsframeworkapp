@@ -48,17 +48,17 @@
   lineinfile:
      dest: /etc/environment
      regexp: "^export EAP_HOME=/opt/wildfly"
-     line: "export EAP_HOME=/opt/wildfly"	
+     line: "export EAP_HOME=/opt/wildfly"
 - name: Adding STANDALONE_SH to Environment Variables
   lineinfile:
      dest: /etc/environment
      regexp: "^export STANDALONE_SH=/opt/wildfly/bin/standalone.sh"
-     line: "export STANDALONE_SH=/opt/wildfly/bin/standalone.sh"  	
+     line: "export STANDALONE_SH=/opt/wildfly/bin/standalone.sh"
 - name: Adding JBOSS_SERVICE to Environment Variables
   lineinfile:
      dest: /etc/environment
      regexp: "^export JBOSS_SERVICE=wildfly"
-     line: "export JBOSS_SERVICE=wildfly"  	 
+     line: "export JBOSS_SERVICE=wildfly"
 - name: Adding VAULT_OFFSET to Environment Variables
   lineinfile:
      dest: /etc/environment
