@@ -4,4 +4,4 @@
      path: "/opt/wildfly/bin/launch.sh"
   register: file
 - include_tasks: config.yml
-  when: file.stat.exists == true
+  when: file.stat.exists == false
