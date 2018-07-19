@@ -4,8 +4,8 @@
 - include: ../tasks/yum/install-packages.yml
 - name: Download Wildfly 10.1
   get_url:
-    url: http://download.jboss.org/wildfly/10.1.0.Final/wildfly-10.1.0.Final.tar.gz
-    dest: /tmp/wildfly.tar.gz
+     url: http://download.jboss.org/wildfly/10.1.0.Final/wildfly-10.1.0.Final.tar.gz
+     dest: /tmp/wildfly.tar.gz
 - name: Creating directory for vault
   file: 
      path: /opt/wildfly-10.1.0.Final/
