@@ -1,0 +1,8 @@
+---
+- name: Starting Services
+  become: true
+  become_user: root
+  service: 
+    name: "{{ item.name }}"
+    state: started
+  with_items: "{{ services_to_start }}"

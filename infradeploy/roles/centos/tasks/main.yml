@@ -1,0 +1,4 @@
+---
+- include: ../tasks/yum/update-all.yml
+- include: ../tasks/service/disable-services.yml
+- include: ../tasks/yum/remove-packages.yml

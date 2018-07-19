@@ -1,0 +1,82 @@
+#!/bin/bash
+#
+# preparejboss: runs from cloud-init once every first boot of an instance
+#
+# Written by Derrick Sutherland, Shadow-Soft, LLC - 17 Oct 2016
+# Based on script written by Jeff Williams, Shadow-Soft, LLC - 11 Oct 2016
+#
+source /etc/environment
+
+SCRIPT=preparejboss
+
+LOGDIR=/var/log
+CLOUDDIR=/var/lib/cloud
+
+INSTANCE_ID=$(cat $CLOUDDIR/data/instance-id)
+
+exec >> $LOGDIR/$SCRIPT.log 2>&1
+
+echo "Instance launch boot time: $(date +'%Y-%m-%d %T')"
+echo "Instance ID: $INSTANCE_ID"
+echo "Environment:"
+set
+
+# Ensuring JBoss is Running
+echo "Ensuring jboss is running"
+systemctl start $JBOSS_SERVICE
+sleep 5s
+
+# Creating vault keystore
+rm -Rf $EAP_HOME/vault/*
+echo "Creating vault keystore."
+keytool -genseckey -alias vault -storetype jceks -keyalg AES -keysize 128 -storepass $INSTANCE_ID -keypass $INSTANCE_ID -validity 730 -keystore $EAP_HOME/vault/vault.keystore
+
+# Creating vault 
+echo "Creating vault instance"
+temp=$(vault --keystore $EAP_HOME/vault/vault.keystore --keystore-password $INSTANCE_ID --alias vault --vault-block vb --attribute password --sec-attr $INSTANCE_ID --enc-dir $EAP_HOME/vault/ --iteration 120 --salt 1234abcd)
+
+echo $temp
+KEYSTORE_URL=$(echo $temp | awk -v var="$VAULT_OFFSET" '{ print $(var) }' | awk -F'"' '$0=$2')
+currentOffset=$(expr 3 + $VAULT_OFFSET)
+KEYSTORE_PASSWORD=$(echo $temp | awk -v var="$currentOffset" '{ print $(var) }' | awk -F'"' '$0=$2')
+currentOffset=$(expr 6 + $VAULT_OFFSET)
+KEYSTORE_ALIAS=$(echo $temp | awk -v var="$currentOffset" '{ print $(var) }' | awk -F'"' '$0=$2')
+currentOffset=$(expr 9 + $VAULT_OFFSET)
+SALT=$(echo $temp | awk -v var="$currentOffset" '{ print $(var) }' | awk -F'"' '$0=$2')
+currentOffset=$(expr 12 + $VAULT_OFFSET)
+ITERATION_COUNT=$(echo $temp | awk -v var="$currentOffset" '{ print $(var) }' | awk -F'"' '$0=$2')
+currentOffset=$(expr 15 + $VAULT_OFFSET)
+ENC_FILE_DIR=$(echo $temp | awk -v var="$currentOffset" '{ print $(var) }' | awk -F'"' '$0=$2')
+
+# Saving vault configuration information to a local flat file for reference
+echo "Saving vault configuration information to $EAP_HOME/vault/vault.info for reference"
+echo -e "KEYSTORE_URL=${KEYSTORE_URL}\nKEYSTORE_PASSWORD=${KEYSTORE_PASSWORD}\nKEYSTORE_ALIAS=${KEYSTORE_ALIAS}\nSALT=${SALT}\nITERATION_COUNT=${ITERATION_COUNT}\nENC_FILE_DIR=${ENC_FILE_DIR}" > $EAP_HOME/vault/vault.info
+
+# Correcting permissions for vault
+chown -R jboss. $EAP_HOME/vault
+chmod -R 700 $EAP_HOME/vault
+
+# Loop until management server is up
+echo "Loop until management server is up"
+while ! curl http://localhost:9990 &> /dev/null; do sleep 3 && echo -n .; done;
+
+# Configuring EAP to Use Vault and Setting Up Default Roles
+echo "Configuring EAP To use vault and setting up some default roles"
+echo -e "connect \n/core-service=vault:add(vault-options=[(\"KEYSTORE_URL\" => \"${KEYSTORE_URL}\"),(\"KEYSTORE_PASSWORD\" => \"${KEYSTORE_PASSWORD}\"),(\"KEYSTORE_ALIAS\" => \"${KEYSTORE_ALIAS}\"),(\"SALT\" => \"${SALT}\"),(\"ITERATION_COUNT\" => \"${ITERATION_COUNT}\"),(\"ENC_FILE_DIR\" => \"${ENC_FILE_DIR}\")])\n/:reload" > /tmp/vault.cli
+
+jboss-cli --file=/tmp/vault.cli
+
+# Creating admin jboss user
+echo "Creating jboss admin user."
+add-user -u admin -p $INSTANCE_ID
+
+# Restarting JBoss is Running
+echo "Restarting jboss is running"
+systemctl restart $JBOSS_SERVICE
+
+
+
+
+
+
+

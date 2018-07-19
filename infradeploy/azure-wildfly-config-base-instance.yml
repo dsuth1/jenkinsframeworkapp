@@ -1,0 +1,7 @@
+---
+- name: Configure Wildfly 10 Machines
+  hosts: tag_Group_wildfly10test
+  remote_user: normaluser
+  become: yes
+  roles:
+   - wildfly-10.1

@@ -1,0 +1,8 @@
+# Add SSH key to an existing Azure VM
+- name: Add SSH key to Azure VM
+  azure_rm_virtualmachine:
+    resource_group: "{{ item.resource_group }}"
+    name: "{{ item.name }}"
+    started: True
+    ssh_public_keys: "{{ ssh_key_contents }}"
+  with_items: "{{ instances }}"

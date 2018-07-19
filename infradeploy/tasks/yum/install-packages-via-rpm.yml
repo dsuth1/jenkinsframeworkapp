@@ -1,0 +1,4 @@
+---
+- name: Installing package via rpm
+  command: rpm -i "{{ item.name }}"
+  with_items: "{{ packages_to_install_via_rpm }}"

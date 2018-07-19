@@ -1,0 +1,8 @@
+---
+- name: Enabling Services
+  become: true
+  become_user: root 
+  service: 
+    name: "{{ item.name }}"
+    enabled: yes
+  with_items: "{{ services_to_enable }}"

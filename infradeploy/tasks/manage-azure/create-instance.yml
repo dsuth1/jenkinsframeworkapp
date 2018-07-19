@@ -1,0 +1,27 @@
+---
+- name: Insure instance is removed
+  azure_rm_virtualmachine:
+    name: "{{ item.name }}"
+    resource_group: "{{ item.resource_group }}"
+    state: absent
+  with_items: "{{ instances }}"
+- name: Launch instance
+  azure_rm_virtualmachine:
+     name: "{{ item.name }}"
+     resource_group: "{{ item.resource_group }}"
+     admin_username: "{{ item.username }}"
+     ssh_password_enabled: false
+     ssh_public_keys:
+       - path: "/home/{{ item.username }}/.ssh/authorized_keys"
+         key_data: "{{ ssh_key_contents }}"
+     tags:
+        purpose: "{{ item.purpose }}"
+     storage_account: "{{ item.storage_account }}"
+     vm_size: "{{ item.size }}"   
+     image:
+        offer: "{{ item.offer }}"
+        publisher:  "{{ item.publisher }}"
+        sku: "{{ item.sku }}"
+        version: "{{ item.version }}"
+     open_ports: "{{ item.open_ports }}"
+  with_items: "{{ instances }}"

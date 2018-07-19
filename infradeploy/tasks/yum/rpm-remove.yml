@@ -1,0 +1,4 @@
+---
+- name: Removing package
+  command: rpm -e "{{ item.name }}"
+  with_items: "{{ rpms_to_remove }}"

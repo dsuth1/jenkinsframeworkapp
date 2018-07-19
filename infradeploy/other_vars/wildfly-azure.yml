@@ -1,0 +1,26 @@
+---
+
+#example
+#RESOURCE_GROUP=IcingaDev
+#PURPOSE=icinga2image
+resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
+purpose: "{{ lookup('env','PURPOSE') }}"
+storage_account: "{{ lookup('env','AZURE_STORAGE_ACCOUNT') }}"
+image_container: "{{ lookup('env','AZURE_IMAGE_CONTAINER') }}"
+storage_key: "{{ lookup('env','AZURE_STORAGE_KEY') }}"
+
+instances:
+  - { name: "{{ purpose }}", 
+      resource_group: "{{ resource_group }}", 
+      username: "normaluser", 
+      size: "Standard_B2ms", 
+      purpose: "{{ purpose }}", 
+      offer: "CentOS",
+      publisher: "OpenLogic",
+      sku: "7.4",
+      version: "latest",
+      storage_account: "{{ storage_account }}",
+      open_ports: [ 22, 80 ] }
+
+ssh_users: 
+  - { name: "normaluser" }

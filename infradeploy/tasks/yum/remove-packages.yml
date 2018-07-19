@@ -1,0 +1,6 @@
+---
+- name: Removing package
+  yum: 
+     name: "{{ item.name }}"
+     state: absent
+  with_items: "{{ packages_to_remove }}"

@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: 'centos' , when: ansible_os_family == 'RedHat' }

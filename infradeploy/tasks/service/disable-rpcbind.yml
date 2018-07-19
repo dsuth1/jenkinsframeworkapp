@@ -1,0 +1,10 @@
+---
+- name: Disabling Services
+  become: true
+  become_user: root 
+  service: 
+    name: "{{ item }}"
+    enabled: no
+  with_items: 
+    - "rpcbind"
+    - "rpcbind.socket"

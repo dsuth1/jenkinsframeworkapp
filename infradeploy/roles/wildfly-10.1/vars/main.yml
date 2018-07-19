@@ -1,0 +1,9 @@
+---
+users_to_add:
+  - { name: "jboss" }
+packages_to_install:
+  - { name: "java-1.8.0-openjdk" }
+services_to_enable:
+  - { name: "wildfly" }
+services_to_start:
+  - { name: "wildfly" }

@@ -1,0 +1,16 @@
+connect
+/subsystem=jmx/remoting-connector=jmx/:remove
+/core-service=management/access=authorization:write-attribute(name=provider, value=rbac)
+/core-service=management/access=authorization/role-mapping=Administrator:add
+/core-service=management/access=authorization/role-mapping=Deployer:add
+/core-service=management/access=authorization/role-mapping=Maintainer:add
+/core-service=management/access=authorization/role-mapping=Monitor:add
+/core-service=management/access=authorization/role-mapping=Operator:add
+/core-service=management/access=authorization/role-mapping=Administrator/include=user-admin:add(name=admin, type=USER)
+/core-service=management/access=authorization/role-mapping=Deployer/include=user-admin:add(name=admin, type=USER)
+/core-service=management/access=authorization/role-mapping=Maintainer/include=user-admin:add(name=admin, type=USER)
+/core-service=management/access=authorization/role-mapping=Monitor/include=user-admin:add(name=admin, type=USER)
+/core-service=management/access=authorization/role-mapping=Operator/include=user-admin:add(name=admin, type=USER)
+/interface=management:write-attribute(name=inet-address, value="${jboss.bind.address.management:0.0.0.0}")
+/interface=public:write-attribute(name=inet-address, value="${jboss.bind.address.management:0.0.0.0}")
+/:reload

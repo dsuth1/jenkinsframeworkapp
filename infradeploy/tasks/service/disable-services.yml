@@ -1,0 +1,9 @@
+---
+- name: Disabling Services
+  become: true
+  become_user: root 
+  service: 
+    name: "{{ item.name }}"
+    enabled: no
+  ignore_errors: yes
+  with_items: "{{ services_to_disable }}"

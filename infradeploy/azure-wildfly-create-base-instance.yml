@@ -1,0 +1,7 @@
+---
+- name: Spin up Azure instance for Wildfly
+  hosts: localhost
+  gather_facts: false
+  tasks:
+   - include_vars: other_vars/wildfly-azure.yml
+   - include: tasks/manage-azure/create-instance.yml

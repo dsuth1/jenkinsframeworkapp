@@ -1,0 +1,11 @@
+---
+- name: Removing VMs and all resources
+  azure_rm_virtualmachine:
+    name: "{{ item.name }}"
+    resource_group: "{{ item.resource_group }}"
+    state: absent
+    remove_on_absent:
+        - network_interfaces
+        - virtual_storage
+        - public_ips
+  with_items: "{{ instances }}"
