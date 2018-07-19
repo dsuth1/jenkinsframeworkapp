@@ -4,7 +4,6 @@
     name: "{{ instance.name }}"
     resource_group: "{{ instance.resource_group }}"
   register: result
-- debug: var=result
 - name: Launch instance
   azure_rm_virtualmachine:
      name: "{{ instance.name }}"

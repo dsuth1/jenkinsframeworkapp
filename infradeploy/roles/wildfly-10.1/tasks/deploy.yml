@@ -1,0 +1,7 @@
+---
+- name: Removing old deployment wars
+  file:
+   state: absent
+- name: Copying new deployment wars
+  copy:
+

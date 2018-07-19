@@ -1,6 +1,6 @@
 ---
 - name: Configure Wildfly 10 Machines
-  hosts: tag_Group_wildfly10test
+  hosts: purpose_{{ lookup('env','PURPOSE') }}
   remote_user: normaluser
   become: yes
   roles:
