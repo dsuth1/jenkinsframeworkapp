@@ -18,7 +18,7 @@ instances:
       sku: "7.4",
       version: "latest",
       storage_account: "{{ storage_account }}",
-      open_ports: [ 22, 80 ] }
+      open_ports: [ 22, 8080 ] }
 
 ssh_users: 
   - { name: "normaluser" }
