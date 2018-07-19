@@ -6,8 +6,6 @@
 resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
 purpose: "{{ lookup('env','PURPOSE') }}"
 storage_account: "{{ lookup('env','AZURE_STORAGE_ACCOUNT') }}"
-image_container: "{{ lookup('env','AZURE_IMAGE_CONTAINER') }}"
-storage_key: "{{ lookup('env','AZURE_STORAGE_KEY') }}"
 
 instances:
   - { name: "{{ purpose }}", 
