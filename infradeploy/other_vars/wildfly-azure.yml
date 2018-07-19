@@ -1,8 +1,5 @@
 ---
 
-#example
-#RESOURCE_GROUP=IcingaDev
-#PURPOSE=icinga2image
 resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
 purpose: "{{ lookup('env','PURPOSE') }}"
 storage_account: "{{ lookup('env','AZURE_STORAGE_ACCOUNT') }}"
