@@ -1,0 +1,7 @@
+---
+- name: Start instances
+  azure_rm_virtualmachine:
+    name: "{{ item.name }}"
+    resource_group: "{{ item.resource_group }}"
+    allocated: no
+  with_items: "{{ instances }}"

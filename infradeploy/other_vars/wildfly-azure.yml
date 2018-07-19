@@ -4,18 +4,18 @@ resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
 purpose: "{{ lookup('env','PURPOSE') }}"
 storage_account: "{{ lookup('env','AZURE_STORAGE_ACCOUNT') }}"
 
-instances:
-  - { name: "{{ purpose }}", 
-      resource_group: "{{ resource_group }}", 
-      username: "normaluser", 
-      size: "Standard_B2ms", 
-      purpose: "{{ purpose }}", 
-      offer: "CentOS",
-      publisher: "OpenLogic",
-      sku: "7.4",
-      version: "latest",
-      storage_account: "{{ storage_account }}",
-      open_ports: [ 22, 8080 ] }
+instance:
+  name: "{{ purpose }}", 
+  resource_group: "{{ resource_group }}", 
+  username: "normaluser", 
+  size: "Standard_B2ms", 
+  purpose: "{{ purpose }}", 
+  offer: "CentOS",
+  publisher: "OpenLogic",
+  sku: "7.4",
+  version: "latest",
+  storage_account: "{{ storage_account }}",
+  open_ports: [ 22, 8080 ] }
 
 ssh_users: 
   - { name: "normaluser" }
