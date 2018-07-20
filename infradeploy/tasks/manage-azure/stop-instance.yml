@@ -1,7 +1,6 @@
 ---
-- name: Start instances
+- name: Stop instances
   azure_rm_virtualmachine:
-    name: "{{ item.name }}"
-    resource_group: "{{ item.resource_group }}"
+    name: "{{ instance.name }}"
+    resource_group: "{{ instance.resource_group }}"
     allocated: no
-  with_items: "{{ instances }}"
