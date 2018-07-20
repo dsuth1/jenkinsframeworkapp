@@ -58,7 +58,7 @@ public class DataUtil {
 				host="localhost";
 			String port=System.getenv("WEB_SERVICE_PORT");
 			if(port==null || port.isEmpty())
-				port="80";
+				port="8080";
 			
 			baseURL="http://"+host;
 			
