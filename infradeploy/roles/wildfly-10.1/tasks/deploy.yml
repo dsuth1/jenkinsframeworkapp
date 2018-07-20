@@ -1,7 +1,6 @@
 ---
 - name: Removing old deployment wars
-  file:
-   state: absent
+  shell: rm -Rf /opt/wildfly/standalone/deployments/*
 - name: Copying new deployment war for PolishedDemo
   copy:
     src: /var/jenkins_home/.m2/repository/com/securepaas/demo/PolishedDemo/0.8-SNAPSHOT/PolishedDemo-0.8-SNAPSHOT.war
