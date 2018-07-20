@@ -4,3 +4,5 @@
     name: "{{ instance.name }}"
     resource_group: "{{ instance.resource_group }}"
     allocated: no
+  async: 1000
+  poll: 0
