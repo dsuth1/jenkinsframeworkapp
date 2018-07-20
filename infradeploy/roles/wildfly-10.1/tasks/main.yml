@@ -5,3 +5,4 @@
   register: file
 - include_tasks: config.yml
   when: file.stat.exists == false
+- include_tasks: deploy.yml
