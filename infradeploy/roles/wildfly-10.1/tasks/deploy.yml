@@ -22,3 +22,5 @@
     owner: jboss
     group: jboss
     mode: 0644
+- name: Removing old deployment wars
+  shell: rm -Rf /opt/wildfly/standalone/deployments/*.undeployed
