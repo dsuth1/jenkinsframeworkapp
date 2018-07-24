@@ -130,4 +130,39 @@ public class Ticket implements Serializable {
         }
         return result;
     }
+    
+    @Override
+    public boolean equals(Object o)
+    {
+    	if(this==o)
+    		return true;
+    	else if(o instanceof Ticket)
+    	{
+    		Ticket test=(Ticket)o;
+    		if(!this.location.equals(test.location))
+    			return false;
+    		else if(!this.timeStamp.equals(test.timeStamp))
+    	    	return false;
+    	    else if(!this.registerPlateNumber.equals(test.registerPlateNumber))
+    	    	return false;
+    	    else if(!this.violation.equals(test.violation))
+    	    	return false;
+    	    else if(!this.area.equals(test.area))
+    	    	return false;
+    	    else if(!this.imageUrl.equals(test.imageUrl))
+    	    	return false;
+    	    else if(!this.thumbnailUrl.equals(test.thumbnailUrl))
+    	    	return false;
+    	    else if(!this.notes.equals(test.notes))
+    	    	return false;
+    	    else if(this.imageIncluded!=test.imageIncluded)
+    	    	return false;
+    	    else if(this.myTicket!=test.myTicket)
+    	    	return false;
+    	    else
+    	    	return true;
+    	}
+    	else
+    		return false;
+    }
 }

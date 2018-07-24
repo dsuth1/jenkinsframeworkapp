@@ -71,4 +71,25 @@ public class Location implements Serializable {
         }
         return result;
     }
+    
+    @Override
+    public boolean equals(Object o)
+    {
+    	if(o==this)
+    		return true;
+    	else if(o instanceof Location)
+    	{
+    		Location test=(Location)o;
+    		if (!test.address.equals(this.address))
+    			return false;
+    		else if (test.latitude!=this.latitude)
+    			return false;
+    		else if (test.longitude!=this.longitude)
+    			return false;
+    		else 
+    			return true;
+    	}
+    	else
+    		return false;
+    }
 }

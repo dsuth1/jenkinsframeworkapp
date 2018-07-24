@@ -18,5 +18,4 @@ public enum Violation {
     public String getCaption() {
         return caption;
     }
-
 }
