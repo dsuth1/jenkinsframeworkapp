@@ -1,6 +1,4 @@
 ---
-- name: Removing old deployment wars
-  shell: rm -Rf /opt/wildfly/standalone/deployments/*
 - name: Copying new deployment war for PolishedDemo
   copy:
     src: /var/jenkins_home/.m2/repository/com/securepaas/demo/PolishedDemo/0.8-SNAPSHOT/PolishedDemo-0.8-SNAPSHOT.war
@@ -22,5 +20,3 @@
     owner: jboss
     group: jboss
     mode: 0644
-- name: Removing old deployment wars
-  shell: rm -Rf /opt/wildfly/standalone/deployments/*.undeployed
