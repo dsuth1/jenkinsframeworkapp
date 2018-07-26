@@ -190,7 +190,7 @@ public class ShiftsView extends NavigationManager {
                     toFirstUpper((String) propertyId));
         }
         shiftTable.setSortContainerPropertyId("date");
-        shiftTable.setSelectable(false);
+        shiftTable.setSelectable(true);
         
     	VerticalLayout layout=new VerticalLayout();   	
     	layout.addStyleName(STYLE_NAME_TABLE);
