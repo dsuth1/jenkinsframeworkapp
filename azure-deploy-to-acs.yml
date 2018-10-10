@@ -55,13 +55,11 @@
         name: "{{ lookup('env','AKS_NAME') }}"
         resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
       register: aksinfo
-    - debug: var=aksinfo.aks[0].properties.fqdn
-    - name: Blah
+    - name: Get AKS credentials
+      shell: "az login --service-principal --username {{ lookup('env','AZURE_CLIENT_ID') }} --password {{ lookup('env','AZURE_SECRET') }} --tenant {{ lookup('env','AZURE_TENANT') }} && az aks get-credentials --resource-group {{ lookup('env','RESOURCE_GROUP') }} --name {{ lookup('env','AKS_NAME') }}"
+    - name: Provision Kube Pod
       k8s:
-        host: "{{ aksinfo.aks[0].properties.fqdn }}"
         verify_ssl: no
-        username: "{{ lookup('env','AZURE_CLIENT_ID') }}"
-        password: "{{ lookup('env','AZURE_SECRET') }}"
         state: present
         definition:
           containers:
