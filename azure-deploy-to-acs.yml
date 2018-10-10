@@ -20,7 +20,7 @@
         reauthorize: yes
       become: yes
       become_method: sudo
-    - name: Push image to a private repo
+    - name: Build and push image to a private repo
       docker_image:
         name: "{{ lookup('env','IMAGE_NAME') }}"
         repository: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}"
@@ -54,3 +54,14 @@
         resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
       register: aksinfo
     - debug: var=aksinfo
+    - name: Blah
+      k8s:
+        host: "{{ aksinfo.aks.properties.fqdn }}"
+        username: "{{ lookup('env','AZURE_CLIENT_ID') }}"
+        password: "{{ lookup('env','AZURE_SECRET') }}"
+        state: present
+        definition:
+          containers:
+           - name: "{{ lookup('env','IMAGE_NAME') }}"
+             image: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}:latest"
+          
