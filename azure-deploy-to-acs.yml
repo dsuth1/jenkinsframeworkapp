@@ -26,6 +26,9 @@
         repository: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}"
         tag: latest
         force: yes
+        pull: no
         push: yes
+        debug: yes
+        path: ./
       become: yes
       become_method: sudo
