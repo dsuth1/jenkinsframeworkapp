@@ -48,3 +48,9 @@
           - name: default
             count: 1
             vm_size: Standard_D2_v2
+    - name: Get facts for one Azure Kubernetes Service
+      azure_rm_aks_facts:
+        name: "{{ lookup('env','AKS_NAME') }}"
+        resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
+      register: aksinfo
+    - debug: var=aksinfo
