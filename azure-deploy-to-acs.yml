@@ -59,6 +59,7 @@
     - name: Blah
       k8s:
         host: "{{ aksinfo.aks[0].properties.fqdn }}"
+        verify_ssl: no
         username: "{{ lookup('env','AZURE_CLIENT_ID') }}"
         password: "{{ lookup('env','AZURE_SECRET') }}"
         state: present
