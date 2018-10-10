@@ -32,3 +32,19 @@
         path: ./
       become: yes
       become_method: sudo
+    - name: Create an azure kubernetes service
+      azure_rm_aks:
+        name: "{{ lookup('env','AKS_NAME') }}"
+        location: eastus
+        resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
+        dns_prefix: "{{ lookup('env','DNS_PREFIX') }}"
+        linux_profile:
+          admin_username: normaluser
+          ssh_key: "{{ lookup('file', '/var/jenkins_home/.ssh/id_rsa.pub') }}"
+        service_principal:
+          client_id: "{{ lookup('env','AZURE_CLIENT_ID') }}"
+          client_secret: "{{ lookup('env','AZURE_SECRET') }}"
+        agent_pool_profiles:
+          - name: default
+            count: 1
+            vm_size: Standard_D2_v2
