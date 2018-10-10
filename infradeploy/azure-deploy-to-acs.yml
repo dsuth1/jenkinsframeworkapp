@@ -1,0 +1,17 @@
+---
+- name: Deploy ACR and Container Image
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create an azure container registry
+      azure_rm_containerregistry:
+        name: "{{ lookup('env','ACR_NAME') }}"
+        location: eastus
+        resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
+        state: present
+        admin_user_enabled: true
+        sku: Basic
+      tags:
+        Environment: Preproduction
+      register: acrinfo
+    - debug: var=acrinfo
