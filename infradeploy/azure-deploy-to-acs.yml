@@ -12,4 +12,15 @@
         admin_user_enabled: true
         sku: Basic
       register: acrinfo
-    - debug: var=acrinfo
+    - name: Log into Registry
+      docker_login:
+        username: "{{ lookup('env','AZURE_CLIENT_ID') }}"
+        password: "{{ lookup('env','AZURE_SECRET') }}"
+        registry: "{{ acrinfo.login_server }}"
+        reauthorize: yes
+    - name: Push image to a private repo
+      docker_image:
+        name: "{{ lookup('env','IMAGE_NAME') }}"
+        repository: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}"
+        tag: v1
+        push: yes
