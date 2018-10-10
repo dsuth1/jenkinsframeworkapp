@@ -22,10 +22,10 @@
       become_method: sudo
     - name: Push image to a private repo
       docker_image:
-        name: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}"
+        name: "{{ lookup('env','IMAGE_NAME') }}"
         repository: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}"
-        path: './'
         tag: latest
+        force: yes
         push: yes
       become: yes
       become_method: sudo
