@@ -55,7 +55,7 @@
         name: "{{ lookup('env','AKS_NAME') }}"
         resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
       register: aksinfo
-    - debug: var=aksinfo
+    - debug: var=aksinfo.aks[0].properties.fqdn
     - name: Blah
       k8s:
         host: "{{ aksinfo.aks[0].properties.fqdn }}"
