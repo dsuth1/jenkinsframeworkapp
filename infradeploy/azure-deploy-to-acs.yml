@@ -11,7 +11,5 @@
         state: present
         admin_user_enabled: true
         sku: Basic
-      tags:
-        - Environment: Preproduction
       register: acrinfo
     - debug: var=acrinfo
