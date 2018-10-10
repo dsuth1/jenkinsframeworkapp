@@ -56,7 +56,7 @@
     - debug: var=aksinfo
     - name: Blah
       k8s:
-        host: "{{ aksinfo.aks.properties.fqdn }}"
+        host: "{{ aksinfo.aks[0].properties.fqdn }}"
         username: "{{ lookup('env','AZURE_CLIENT_ID') }}"
         password: "{{ lookup('env','AZURE_SECRET') }}"
         state: present
