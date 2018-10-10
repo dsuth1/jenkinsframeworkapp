@@ -1,0 +1,31 @@
+---
+- name: Deploy ACR and Container Image
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create an azure container registry
+      azure_rm_containerregistry:
+        name: "{{ lookup('env','ACR_NAME') }}"
+        location: eastus
+        resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
+        state: present
+        admin_user_enabled: true
+        sku: Basic
+      register: acrinfo
+    - name: Log into Registry
+      docker_login:
+        username: "{{ lookup('env','AZURE_CLIENT_ID') }}"
+        password: "{{ lookup('env','AZURE_SECRET') }}"
+        registry: "{{ acrinfo.login_server }}"
+        reauthorize: yes
+      become: yes
+      become_method: sudo
+    - name: Push image to a private repo
+      docker_image:
+        name: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}"
+        repository: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}"
+        path: './'
+        tag: latest
+        push: yes
+      become: yes
+      become_method: sudo
