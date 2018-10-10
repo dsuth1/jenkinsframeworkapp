@@ -18,9 +18,13 @@
         password: "{{ lookup('env','AZURE_SECRET') }}"
         registry: "{{ acrinfo.login_server }}"
         reauthorize: yes
+      become: yes
+      become_method: sudo
     - name: Push image to a private repo
       docker_image:
         name: "{{ lookup('env','IMAGE_NAME') }}"
         repository: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}"
         tag: v1
         push: yes
+      become: yes
+      become_method: sudo
