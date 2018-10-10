@@ -24,7 +24,7 @@
       docker_image:
         name: "{{ lookup('env','IMAGE_NAME') }}"
         repository: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}"
-        tag: v1
+        tag: latest
         push: yes
       become: yes
       become_method: sudo
