@@ -26,7 +26,7 @@
       docker_image:
         name: "{{ lookup('env','IMAGE_NAME') }}"
         repository: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}"
-        tag: latest
+        tag: "v{{ lookup('env','BUILD_NUMBER') }}"
         force: yes
         pull: no
         push: yes
@@ -39,13 +39,6 @@
         name: "{{ lookup('env','AKS_NAME') }}"
         resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
       register: aksinfo
-    - debug: var=aksinfo
-    - name: Get facts for one Azure Kubernetes Service
-      azure_rm_aks_facts:
-        name: "proaks"
-        resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
-      register: aksinfo
-    - debug: var=aksinfo
     - name: Create an azure kubernetes service
       azure_rm_aks:
         name: "{{ lookup('env','AKS_NAME') }}"
@@ -62,6 +55,7 @@
           - name: default
             count: 1
             vm_size: Standard_D2_v2
+      when: aksinfo.aks[0] is not defined
     - name: Get facts for one Azure Kubernetes Service
       azure_rm_aks_facts:
         name: "{{ lookup('env','AKS_NAME') }}"
@@ -74,11 +68,11 @@
       register: deployed
       ignore_errors: True
     - name: Provision Kube Deployment
-      shell: "kubectl run {{ lookup('env','IMAGE_NAME') }} --image={{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}:latest --port=8080 --image-pull-policy Always"
+      shell: "kubectl run {{ lookup('env','IMAGE_NAME') }} --image={{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}:v{{ lookup('env','BUILD_NUMBER') }} --port=8080 --image-pull-policy Always"
       when: deployed is failed
     - name: Expose Pod 
       shell: "kubectl expose deployment {{ lookup('env','IMAGE_NAME') }} --type=LoadBalancer --name={{ lookup('env','IMAGE_NAME') }}service"
       when: deployed is failed
     - name: Repull pod if deployment already existed
-      shell: "kubectl get pod | grep {{ lookup('env','IMAGE_NAME') }}- | awk '{print $1}' | xargs kubectl delete pod"
+      shell: "kubectl set image deployment {{ lookup('env','IMAGE_NAME') }} {{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}={{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}:v{{ lookup('env','BUILD_NUMBER') }} --record"
       when: deployed is succeeded
