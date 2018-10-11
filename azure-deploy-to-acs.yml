@@ -74,5 +74,5 @@
       shell: "kubectl expose deployment {{ lookup('env','IMAGE_NAME') }} --type=LoadBalancer --name={{ lookup('env','IMAGE_NAME') }}service"
       when: deployed is failed
     - name: Repull pod if deployment already existed
-      shell: "kubectl set image deployment {{ lookup('env','IMAGE_NAME') }} {{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}={{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}:v{{ lookup('env','BUILD_NUMBER') }} --record"
+      shell: "kubectl set image deployment {{ lookup('env','IMAGE_NAME') }} {{ lookup('env','IMAGE_NAME') }}={{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}:v{{ lookup('env','BUILD_NUMBER') }} --record"
       when: deployed is succeeded
