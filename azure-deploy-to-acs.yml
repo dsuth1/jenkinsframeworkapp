@@ -57,12 +57,16 @@
       register: aksinfo
     - name: Get AKS credentials
       shell: "az login --service-principal --username {{ lookup('env','AZURE_CLIENT_ID') }} --password {{ lookup('env','AZURE_SECRET') }} --tenant {{ lookup('env','AZURE_TENANT') }} && az aks get-credentials --resource-group {{ lookup('env','RESOURCE_GROUP') }} --name {{ lookup('env','AKS_NAME') }}"
-    - name: Provision Kube Pod
-      k8s:
-        verify_ssl: no
-        state: present
-        definition:
-          containers:
-           - name: "{{ lookup('env','IMAGE_NAME') }}"
-             image: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}:latest"
-          
+    - name: Check if deployment exists
+      shell: "kubectl describe deployment {{ lookup('env','IMAGE_NAME') }}"
+      register: deployed
+      ignore_errors: True
+    - name: Provision Kube Deployment
+      shell: "kubectl run {{ lookup('env','IMAGE_NAME') }} --image={{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}:latest --port=8080 --image-pull-policy Always"
+      when: deployed is failed
+    - name: Expose Pod 
+      shell: "kubectl expose deployment {{ lookup('env','IMAGE_NAME') }} --type=LoadBalancer --name={{ lookup('env','IMAGE_NAME') }}service"
+      when: deployed is failed
+    - name: Repull pod if deployment already existed
+      shell: "kubectl get pod | grep {{ lookup('env','IMAGE_NAME') }}- | awk '{print $1}' | xargs kubectl delete pod"
+      when: deployed is succeeded
