@@ -8,9 +8,9 @@
     - name: Get AKS credentials
       shell: "az login --service-principal --username {{ lookup('env','AZURE_CLIENT_ID') }} --password {{ lookup('env','AZURE_SECRET') }} --tenant {{ lookup('env','AZURE_TENANT') }} && rm -f /var/jenkins_home/.kube/config && az aks get-credentials --resource-group {{ lookup('env','RESOURCE_GROUP') }} --name {{ lookup('env','AKS_NAME') }}"
     - name: Get IP
-      shell: "kubectl get services {{ lookup('env','IMAGE_NAME') }} }}service | awk '{if(NR>1)print $4}'"
+      shell: "kubectl get services {{ lookup('env','IMAGE_NAME') }}service | awk '{if(NR>1)print $4}'"
       register: ip
       until: ip.stdout != "<pending>"
     - name: Testing app access / running
       uri:
-        url: "http://{{ ip }}:8080/PolishedDemo"
+        url: "http://{{ ip.stdout }}:8080/PolishedDemo"
