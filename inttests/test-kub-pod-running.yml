@@ -13,9 +13,15 @@
       until: ip.stdout != "<pending>"
       retries: 10
       delay: 3
+    - name: Ensure pod deployed
+      shell: "kubectl get pods | grep demoapp | awk '{print $3}'"
+      register: running
+      until: running.stdout == "Running"
+      retries: 10
+      delay: 2
     - name: Testing app access / running
       uri:
-        url: "http://{{ ip.stdout }}:8080/PolishedDemo"
+        url: "http://{{ ip.stdout }}:8080/PolishedDemo/"
     - name: Testing RestWebServices atickets
       uri:
         url: "http://{{ ip.stdout }}:8080/RestWebServices/atickets"
