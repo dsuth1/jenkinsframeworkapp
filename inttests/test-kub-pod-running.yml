@@ -11,14 +11,14 @@
       shell: "kubectl get services {{ lookup('env','IMAGE_NAME') }}service | awk '{if(NR>1)print $4}'"
       register: ip
       until: ip.stdout != "<pending>"
-      retries: 10
+      retries: 20
       delay: 3
     - name: Ensure pod deployed
       shell: "kubectl get pods | grep demoapp | awk '{print $3}'"
       register: running
       until: running.stdout == "Running"
       retries: 10
-      delay: 2
+      delay: 3
     - name: Testing app access / running
       uri:
         url: "http://{{ ip.stdout }}:8080/PolishedDemo/"
