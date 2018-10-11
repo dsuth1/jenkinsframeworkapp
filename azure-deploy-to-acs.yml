@@ -34,6 +34,18 @@
         path: ./
       become: yes
       become_method: sudo
+    - name: Get facts for one Azure Kubernetes Service
+      azure_rm_aks_facts:
+        name: "{{ lookup('env','AKS_NAME') }}"
+        resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
+      register: aksinfo
+    - debug: var=aksinfo
+    - name: Get facts for one Azure Kubernetes Service
+      azure_rm_aks_facts:
+        name: "proaks"
+        resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
+      register: aksinfo
+    - debug: var=aksinfo
     - name: Create an azure kubernetes service
       azure_rm_aks:
         name: "{{ lookup('env','AKS_NAME') }}"
