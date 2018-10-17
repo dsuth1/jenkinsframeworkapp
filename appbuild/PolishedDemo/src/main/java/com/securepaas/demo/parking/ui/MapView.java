@@ -61,7 +61,7 @@ public class MapView extends CssLayout implements PositionCallback,
     }
 
     private void buildView() {
-        setCaption("Map");
+        setCaption("Ticket Map");
         addStyleName("mapview");
         setSizeFull();
 
