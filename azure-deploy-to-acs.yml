@@ -1,0 +1,78 @@
+---
+- name: Deploy ACR and Container Image
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  tasks:
+    - name: Create an azure container registry
+      azure_rm_containerregistry:
+        name: "{{ lookup('env','ACR_NAME') }}"
+        location: eastus
+        resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
+        state: present
+        admin_user_enabled: true
+        sku: Basic
+      register: acrinfo
+    - name: Log into Registry
+      docker_login:
+        username: "{{ lookup('env','AZURE_CLIENT_ID') }}"
+        password: "{{ lookup('env','AZURE_SECRET') }}"
+        registry: "{{ acrinfo.login_server }}"
+        reauthorize: yes
+      become: yes
+      become_method: sudo
+    - name: Build and push image to a private repo
+      docker_image:
+        name: "{{ lookup('env','IMAGE_NAME') }}"
+        repository: "{{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}"
+        tag: "v{{ lookup('env','BUILD_NUMBER') }}"
+        force: yes
+        pull: no
+        push: yes
+        debug: yes
+        path: ./
+      become: yes
+      become_method: sudo
+    - name: Get facts for one Azure Kubernetes Service
+      azure_rm_aks_facts:
+        name: "{{ lookup('env','AKS_NAME') }}"
+        resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
+      register: aksinfo
+    - name: Create an azure kubernetes service
+      azure_rm_aks:
+        name: "{{ lookup('env','AKS_NAME') }}"
+        location: eastus
+        resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
+        dns_prefix: "{{ lookup('env','DNS_PREFIX') }}"
+        linux_profile:
+          admin_username: normaluser
+          ssh_key: "{{ lookup('file', '/var/jenkins_home/.ssh/id_rsa.pub') }}"
+        service_principal:
+          client_id: "{{ lookup('env','AZURE_CLIENT_ID') }}"
+          client_secret: "{{ lookup('env','AZURE_SECRET') }}"
+        agent_pool_profiles:
+          - name: default
+            count: 1
+            vm_size: Standard_D2_v2
+      when: aksinfo.aks[0] is not defined
+    - name: Get facts for one Azure Kubernetes Service
+      azure_rm_aks_facts:
+        name: "{{ lookup('env','AKS_NAME') }}"
+        resource_group: "{{ lookup('env','RESOURCE_GROUP') }}"
+      register: aksinfo
+    - name: Get AKS credentials
+      shell: "az login --service-principal --username {{ lookup('env','AZURE_CLIENT_ID') }} --password {{ lookup('env','AZURE_SECRET') }} --tenant {{ lookup('env','AZURE_TENANT') }} && rm -f /var/jenkins_home/.kube/config && az aks get-credentials --resource-group {{ lookup('env','RESOURCE_GROUP') }} --name {{ lookup('env','AKS_NAME') }}"
+    - name: Check if deployment exists
+      shell: "kubectl describe deployment {{ lookup('env','IMAGE_NAME') }}"
+      register: deployed
+      ignore_errors: True
+    - name: Provision Kube Deployment
+      shell: "kubectl run {{ lookup('env','IMAGE_NAME') }} --image={{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}:v{{ lookup('env','BUILD_NUMBER') }} --port=8080 --image-pull-policy Always"
+      when: deployed is failed
+    - name: Expose Pod 
+      shell: "kubectl expose deployment {{ lookup('env','IMAGE_NAME') }} --type=LoadBalancer --name={{ lookup('env','IMAGE_NAME') }}service"
+      when: deployed is failed
+    - name: Repull pod if deployment already existed
+      shell: "kubectl set image deployment {{ lookup('env','IMAGE_NAME') }} {{ lookup('env','IMAGE_NAME') }}={{ acrinfo.login_server }}/{{ lookup('env','IMAGE_NAME') }}:v{{ lookup('env','BUILD_NUMBER') }} --record"
+      when: deployed is succeeded
