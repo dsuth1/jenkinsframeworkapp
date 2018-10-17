@@ -18,9 +18,9 @@ public class MainTabsheet extends TabBarView {
         TicketView ticketView = new TicketView();
         addTab(ticketView, "ticketstab", "Submit Ticket");
 
-        addTab(new MapView(), "maptab", "Recent Incidents");
+        addTab(new MapView(), "maptab", "Incidents");
 
-        addTab(new ShiftsView(), "shiftstab", "Employee Shifts");
+        addTab(new ShiftsView(), "shiftstab", "Shifts");
 
         addTab(new StatsView(), "statstab", "Stats");
 

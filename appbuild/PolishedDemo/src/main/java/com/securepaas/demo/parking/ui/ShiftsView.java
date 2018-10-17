@@ -61,7 +61,7 @@ public class ShiftsView extends NavigationManager {
 
     private void buildUi() {
         setStyleName(STYLE_NAME);
-        setCaption("Shifts");
+        setCaption("Test Shifts");
         setSizeFull();
 
         shiftContainer = new BeanItemContainer<Shift>(Shift.class,DataUtil.getShifts());
