@@ -20,7 +20,7 @@ public class MainTabsheet extends TabBarView {
 
         addTab(new MapView(), "maptab", "Recent Incidents");
 
-        addTab(new ShiftsView(), "shiftstab", "Shifts");
+        addTab(new ShiftsView(), "shiftstab", "Employee Shifts");
 
         addTab(new StatsView(), "statstab", "Stats");
 
