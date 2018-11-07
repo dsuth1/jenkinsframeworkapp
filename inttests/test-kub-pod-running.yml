@@ -22,15 +22,25 @@
     - name: Testing app access / running
       uri:
         url: "http://{{ ip.stdout }}:8080/PolishedDemo/"
+      retries: 10
+      delay: 3
     - name: Testing RestWebServices atickets
       uri:
         url: "http://{{ ip.stdout }}:8080/RestWebServices/atickets"
+      retries: 10
+      delay: 3
     - name: Testing RestWebServices btickets
       uri:
         url: "http://{{ ip.stdout }}:8080/RestWebServices/btickets"
+      retries: 10
+      delay: 3
     - name: Testing RestWebServices ctickets
       uri:
         url: "http://{{ ip.stdout }}:8080/RestWebServices/ctickets"
+      retries: 10
+      delay: 3
     - name: Testing SOAPWebServices
       uri:
         url: "http://{{ ip.stdout }}:8080/SoapWebServices/ShiftWs?wsdl"
+      retries: 10
+      delay: 3
