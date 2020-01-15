@@ -1,0 +1,31 @@
+---
+version: '2'
+
+services:
+  webapp:
+    build:
+      context: WebApp/
+    restart: unless-stopped
+    hostname: webapp
+    environment:
+      - REST_SERVICE_PORT=8080
+      - REST_SERVICE_HOST=restservice
+      - SOAP_SERVICE_PORT=8080
+      - SOAP_SERVICE_HOST=soapservice
+    depends_on:
+      - restservice
+      - soapservice
+    ports:
+      - 80:8080
+
+  restservice:
+    build:
+      context: RestService/
+    restart: unless-stopped
+    hostname: restservice
+
+  soapservice:
+    build:
+      context: SOAPService/
+    restart: unless-stopped
+    hostname: soapservice

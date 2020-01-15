@@ -36,7 +36,8 @@ import elemental.json.JsonObject;
 public class DataUtil {
 	private static Logger logger=Logger.getLogger(DataUtil.class.getCanonicalName());
 	private static SoapServiceInterface shiftWs;
-	private static String baseURL;
+	private static String restURL;
+	private static String soapURL;
 	
 	public static BeanItemContainer<Ticket> initData()
 	{
@@ -49,23 +50,42 @@ public class DataUtil {
 		ParkingUI.getTicketContainer().addAll(getTickets());
 	}
 	
-	private synchronized static String getBaseURL()
+	private synchronized static String getRestBaseURL()
 	{
-		if(baseURL==null)
+		if(restURL==null)
 		{
-			String host=System.getenv("WEB_SERVICE_HOST");
+			String host=System.getenv("REST_SERVICE_HOST");
 			if(host==null || host.isEmpty())
 				host="localhost";
-			String port=System.getenv("WEB_SERVICE_PORT");
+			String port=System.getenv("REST_SERVICE_PORT");
 			if(port==null || port.isEmpty())
 				port="8080";
 			
-			baseURL="http://"+host;
+			restURL="http://"+host;
 			
 			if(!port.equals("80"))
-				baseURL=baseURL+":"+port;
+				restURL=restURL+":"+port;
 		}
-		return baseURL;
+		return restURL;
+	}
+	
+	private synchronized static String getSOAPBaseURL()
+	{
+		if(soapURL==null)
+		{
+			String host=System.getenv("SOAP_SERVICE_HOST");
+			if(host==null || host.isEmpty())
+				host="localhost";
+			String port=System.getenv("SOAP_SERVICE_PORT");
+			if(port==null || port.isEmpty())
+				port="8080";
+			
+			soapURL="http://"+host;
+			
+			if(!port.equals("80"))
+				soapURL=soapURL+":"+port;
+		}
+		return soapURL;
 	}
 	
 	private synchronized static SoapServiceInterface getShiftWs()
@@ -73,7 +93,7 @@ public class DataUtil {
 		if(shiftWs==null)
 		{
 	    	try {
-				String wsBaseURL=getBaseURL()+"/SoapWebServices/";
+				String wsBaseURL=getSOAPBaseURL()+"/SoapWebServices/";
 				
 				Service service = Service.create(new URL(wsBaseURL+"ShiftWs?wsdl"), new QName(SoapServiceInterface.TARGET_NAMESPACE, "ShiftWs"));
 				shiftWs=service.getPort(SoapServiceInterface.class);
@@ -88,7 +108,7 @@ public class DataUtil {
 	private static Builder getTicketClient(char type)
 	{
 		Client client = ClientBuilder.newClient();
-		Builder builder=client.target(getBaseURL()+"/RestWebServices/"+type+"tickets").request().accept(MediaType.APPLICATION_JSON);
+		Builder builder=client.target(getRestBaseURL()+"/RestWebServices/"+type+"tickets").request().accept(MediaType.APPLICATION_JSON);
 		return builder;
 	}	
 	
@@ -176,8 +196,7 @@ public class DataUtil {
         	builder = getTicketClient('c');
         
         try {
-         	Response res = builder
-         			.post(Entity.entity(ticket, MediaType.APPLICATION_JSON));
+         	Response res = builder.post(Entity.entity(ticket, MediaType.APPLICATION_JSON));
          	if(res.getStatus()==Status.ACCEPTED.getStatusCode()) 
          		return true;
          	else
