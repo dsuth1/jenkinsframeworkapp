@@ -105,10 +105,10 @@ public class DataUtil {
 		return shiftWs;
 	}
 	
-	private static Builder getTicketClient(char type)
+	private static Builder getTicketClient()
 	{
 		Client client = ClientBuilder.newClient();
-		Builder builder=client.target(getRestBaseURL()+"/RestWebServices/"+type+"tickets").request().accept(MediaType.APPLICATION_JSON);
+		Builder builder=client.target(getRestBaseURL()+"/RestWebServices/tickets").request().accept(MediaType.APPLICATION_JSON);
 		return builder;
 	}	
 	
@@ -120,32 +120,13 @@ public class DataUtil {
     private static Collection<Ticket> getTickets() {   
     	List<Ticket> result=new ArrayList<Ticket>();
         try {
-        	Response res = getTicketClient('a')
+        	Response res = getTicketClient()
         			.get();
         	List<Ticket> shifts=res.readEntity(new GenericType<List<Ticket>>() {});
 			result.addAll(shifts);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Failed to get list of A shift objects:\n "+e.getMessage(),e);
 		}
-        
-        try {
-        	Response res = getTicketClient('b')
-        			.get();
-        	List<Ticket> shifts=res.readEntity(new GenericType<List<Ticket>>() {});
-			result.addAll(shifts);
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Failed to get list of B shift objects:\n "+e.getMessage(),e);
-		}
-        
-        try {
-        	Response res = getTicketClient('c')
-        			.get();
-        	List<Ticket> shifts=res.readEntity(new GenericType<List<Ticket>>() {});
-			result.addAll(shifts);
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Failed to get list of C shift objects:\n "+e.getMessage(),e);
-		}
-        
         return result;
     }
     
@@ -187,13 +168,7 @@ public class DataUtil {
         if (location.getLatitude() == 0.0 || location.getLongitude() == 0.0) {
             determineTicketLocation(ticket);
         }
-        Builder builder;
-        if(ticket.getArea().startsWith("A"))
-        	 builder = getTicketClient('a');
-        else if(ticket.getArea().startsWith("B"))
-        	builder = getTicketClient('b');  	
-        else
-        	builder = getTicketClient('c');
+        Builder builder = getTicketClient();
         
         try {
          	Response res = builder.post(Entity.entity(ticket, MediaType.APPLICATION_JSON));

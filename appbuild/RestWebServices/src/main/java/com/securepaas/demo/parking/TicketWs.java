@@ -11,24 +11,25 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.securepaas.demo.dao.TicketDAO;
 import com.securepaas.demo.parking.object.Ticket;
 
-@Path("/btickets")
+@Path("/tickets")
 @Produces(MediaType.APPLICATION_JSON)
-public class BTicketWs{
-	private static final List<Ticket> result=ATicketWs.generateTickets('B');
+public class TicketWs{
 	
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Ticket> getTickets() {
-    	return result;
+    	 return TicketDAO.getTickets();
     }
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response commitTickets(Ticket ticket){
-    	
-    	result.add(ticket);
-    	return Response.status(Status.ACCEPTED).build(); 
+    	if(TicketProducer.commit(ticket))
+    		return Response.status(Status.ACCEPTED).build();
+    	else
+    		return Response.status(Status.EXPECTATION_FAILED).build();
     }
 }

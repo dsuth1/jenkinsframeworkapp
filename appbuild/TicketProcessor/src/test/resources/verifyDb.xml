@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <identityidentifier type="FULLY_QUALIFIED_DOMAIN_NAME" value="http://securepaas:8080/ServiceProviderOne" id="1338" scope="[NULL]"/>
+  <identityidentifier type="USER_ID" value="user_1" id="1340" scope="[NULL]"/>
+  <identityidentifier type="HOST_NAME" value="securepaas" id="1341" SCOPE="[NULL]"/>*
+  <genericidentifier type="RESOURCE_URL" value="http://securepaas:8080/ServiceProviderOne" scope="[NULL]" id="1338"/>*
+  <resourcetype value="CLIENT_RESOURCE" namespace="[NULL]" id="1337" source="[NULL]"/>
+  <resource id="1338" type="1337" creator="1338"/>
+  <auditrecord id="1234" datetime="2012-09-18 09:01:21.731" creatorid="1341" message="[TEST] Permit Read access to user_1 for resource http://securepaas:8080/ServiceProviderOne" action="READ" actionresult="GRANT" actioninitiator="1340" actionresource="1338"/>
+</dataset>

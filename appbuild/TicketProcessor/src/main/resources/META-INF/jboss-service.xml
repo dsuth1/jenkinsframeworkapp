@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+	<mbean code="com.securepaas.demo.parking.AmqpTicketProcessor" 
+           name="jboss:service=AmqpTicketProcessor">
+	    <!-- DataSource JNDI name
+		<depends>jboss.jca:service=DataSourceBinding,name=SecurePaaSDS</depends>
+		<depends>jboss.jca:name=SecurePaaSDS,service=LocalTxCM</depends>
+		<depends>jboss.jca:name=SecurePaaSDS,service=ManagedConnectionFactory</depends>
+		<depends>jboss.jca:name=SecurePaaSDS,service=ManagedConnectionPool</depends>
+		<depends>jboss.jdbc:datasource=SecurePaaSDS,service=metadata</depends> -->
+	</mbean>
+</server>

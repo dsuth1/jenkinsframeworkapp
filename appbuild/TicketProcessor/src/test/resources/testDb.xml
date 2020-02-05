@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <actionresulttype id="DENY"/>
+  <actionresulttype id="FAILURE"/>
+  <actionresulttype id="GRANT"/>
+  <actionresulttype id="SUCCESS"/>
+  <identityidentifiertype id="AGENCY_EMPLOYEE_ID"/>
+  <identityidentifiertype id="AGENCY_USER_ID"/>
+  <identityidentifiertype id="DEVICE_ID"/>
+  <identityidentifiertype id="DIGITAL_IDENTIFIER"/>
+  <identityidentifiertype id="DOMAIN_NAME"/>
+  <identityidentifiertype id="EMPLOYEE_ID"/>
+  <identityidentifiertype id="FEDERAL_AGENCY_SMART_CREDENTIAL_NUMBER"/>
+  <identityidentifiertype id="FULLY_QUALIFIED_DOMAIN_NAME"/>
+  <identityidentifiertype id="HOST_NAME"/>
+  <identityidentifiertype id="IP_ADDRESS"/>
+  <identityidentifiertype id="PROCESS_ID"/>
+  <identityidentifiertype id="USER_ID"/>
+  <identityidentifiertype id="WORKSTATION_ID"/>
+  <actiontype id="ACCESS_DECISION"/>
+  <actiontype id="ACTIVATE"/>
+  <actiontype id="ADD"/>
+  <actiontype id="AUTHENTICATE"/>
+  <actiontype id="CLEAR"/>
+  <actiontype id="CREATE"/>
+  <actiontype id="DEACTIVATE"/>
+  <actiontype id="DELETE"/>
+  <actiontype id="EXECUTE"/>
+  <actiontype id="EXECUTE_PRIVILEDGED_COMMAND"/>
+  <actiontype id="EXPORT"/>
+  <actiontype id="INSERT"/>
+  <actiontype id="LOAD"/>
+  <actiontype id="LOCK"/>
+  <actiontype id="LOGIN"/>
+  <actiontype id="LOGOUT"/>
+  <actiontype id="MODIFY"/>
+  <actiontype id="MOVE"/>
+  <actiontype id="PRINT"/>
+  <actiontype id="READ"/>
+  <actiontype id="REMOVE"/>
+  <actiontype id="RESTART"/>
+  <actiontype id="RETRIEVE"/>
+  <actiontype id="SAVE"/>
+  <actiontype id="SET"/>
+  <actiontype id="SHUTDOWN"/>
+  <actiontype id="STARTUP"/>
+  <actiontype id="UNLOCK"/>
+  <identityidentifier type="FULLY_QUALIFIED_DOMAIN_NAME" value="http://securepaas:8080/ServiceProviderOne" id="1338"/>
+  <identityidentifier type="HOST_NAME" value="securepaas" id="1341"/>
+  <identityidentifier type="USER_ID" value="user_1" id="1340"/>
+  <genericidentifier type="RESOURCE_URL" value="http://securepaas:8080/ServiceProviderOne" id="1338"/>
+  <resourcetype value="CLIENT_RESOURCE" id="1337"/>
+  <resource id="1338" type="1337" creator="1338"/>
+  <auditrecord/>
+</dataset>

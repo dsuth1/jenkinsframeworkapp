@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<securepaas-config>
+	<properties>
+		<property name="securepaas.audit.broker.host" value="securepaas" />
+		<property name="securepaas.audit.broker.port" value="5671" />
+		<property name="securepaas.audit.broker.ssl" value="true" />
+		<property name="securepaas.audit.broker.queueType" value="amq.direct" />
+		<property name="securepaas.audit.broker.queue" value="securepaas.security.audit" />
+		<property name="securepaas.audit.broker.clientId" value="securepaas" />
+		<property name="securepaas.audit.broker.virtualHost" value="test" />
+		<property name="securepaas.audit.broker.username" value="guest" />
+		<property name="securepaas.audit.broker.password" value="guest" />
+		<property name="securepaas.audit.class.primary" value="com.securepaas.audit.AmqpAuditor" />
+		<property name="securepaas.audit.class.secondary" value="com.securepaas.audit.JBossFileAuditor" />
+	</properties>
+</securepaas-config>

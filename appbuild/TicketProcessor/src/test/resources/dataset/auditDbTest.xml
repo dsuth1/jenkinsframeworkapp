@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <actionresulttype name="DENY" id="4"/>
+  <actionresulttype name="FAILURE" id="2"/>
+  <actionresulttype name="GRANT" id="3"/>
+  <actionresulttype name="SUCCESS" id="1"/>
+  <identityidentifiertype name="AGENCY_EMPLOYEE_ID" id="2"/>
+  <identityidentifiertype name="AGENCY_USER_ID" id="1"/>
+  <identityidentifiertype name="DEVICE_ID" id="3"/>
+  <identityidentifiertype name="DIGITAL_IDENTIFIER" id="4"/>
+  <identityidentifiertype name="DOMAIN_NAME" id="5"/>
+  <identityidentifiertype name="EMPLOYEE_ID" id="6"/>
+  <identityidentifiertype name="FEDERAL_AGENCY_SMART_CREDENTIAL_NUMBER" id="7"/>
+  <identityidentifiertype name="FULLY_QUALIFIED_DOMAIN_NAME" id="8"/>
+  <identityidentifiertype name="HOST_NAME" id="9"/>
+  <identityidentifiertype name="IP_ADDRESS" id="10"/>
+  <identityidentifiertype name="PROCESS_ID" id="11"/>
+  <identityidentifiertype name="USER_ID" id="12"/>
+  <identityidentifiertype name="WORKSTATION_ID" id="13"/>
+  <actiontype name="ACCESS_DECISION" id="15"/>
+  <actiontype name="ACTIVATE" id="2"/>
+  <actiontype name="ADD" id="1"/>
+  <actiontype name="AUTHENTICATE" id="16"/>
+  <actiontype name="CLEAR" id="3"/>
+  <actiontype name="CREATE" id="4"/>
+  <actiontype name="DEACTIVATE" id="5"/>
+  <actiontype name="DELETE" id="6"/>
+  <actiontype name="EXECUTE" id="7"/>
+  <actiontype name="EXECUTE_PRIVILEDGED_COMMAND" id="17"/>
+  <actiontype name="EXPORT" id="18"/>
+  <actiontype name="INSERT" id="8"/>
+  <actiontype name="LOAD" id="19"/>
+  <actiontype name="LOCK" id="20"/>
+  <actiontype name="LOGIN" id="21"/>
+  <actiontype name="LOGOUT" id="22"/>
+  <actiontype name="MODIFY" id="23"/>
+  <actiontype name="MOVE" id="9"/>
+  <actiontype name="PRINT" id="24"/>
+  <actiontype name="READ" id="10"/>
+  <actiontype name="REMOVE" id="12"/>
+  <actiontype name="RESTART" id="28"/>
+  <actiontype name="RETRIEVE" id="11"/>
+  <actiontype name="SAVE" id="14"/>
+  <actiontype name="SET" id="13"/>
+  <actiontype name="SHUTDOWN" id="26"/>
+  <actiontype name="STARTUP" id="25"/>
+  <actiontype name="UNLOCK" id="27"/>
+  <resourcetype/>
+  <genericidentifier type="URL" value="http://www.anywhere.com" id="3"/>
+  <genericidentifier type="URL" value="http://www.nowhere.com" id="2"/>
+  <genericidentifier type="URL" value="http://www.somewhere.com" id="1"/>
+  <identityidentifier type="12" value="user_1" id="1"/>
+  <identityidentifier type="12" value="user_2" id="2"/>
+  <identityidentifier type="12" value="user_3" id="3"/>
+  <identityidentifier type="12" value="user_4" id="4"/>
+  <resource/>
+  <auditrecord/>
+</dataset>
