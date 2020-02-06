@@ -24,6 +24,21 @@
 		    <artifactId>qpid-client</artifactId>
 		    <version>6.3.0</version>
 		</dependency>
+		<dependency>
+		  <groupId>org.jooq</groupId>
+		  <artifactId>jooq</artifactId>
+		  <version>3.12.4</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.jooq</groupId>
+		  <artifactId>jooq-meta</artifactId>
+		  <version>3.12.4</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.jooq</groupId>
+		  <artifactId>jooq-codegen</artifactId>
+		  <version>3.12.4</version>
+		</dependency>
 	</dependencies>
 	
 	<build>

@@ -13,22 +13,26 @@ import javax.jms.Session;
 
 import org.apache.qpid.client.AMQConnection;
 import org.apache.qpid.client.AMQQueue;
+import org.apache.qpid.client.AMQTopic;
 
 
-public class TicketQueueConnection {
-	private static TicketQueueConnection ticketQueueConnection;
-	private static Logger log = Logger.getLogger(TicketQueueConnection.class.getCanonicalName());
+public class JMSBrokerConnection {
+	private static JMSBrokerConnection ticketQueueConnection;
+	private static Logger log = Logger.getLogger(JMSBrokerConnection.class.getCanonicalName());
 	private static boolean trace=log.isLoggable(Level.INFO);
 	private final Connection connection;
 	private final Session session;
 	private final Destination destinationQueue;
+	private final Destination destinationTopic;
 
 	
-	private TicketQueueConnection() throws JMSException
+	private JMSBrokerConnection() throws JMSException
 	{
 		try {
 			String QUEUE_NAME=System.getenv("TICKETBROKER_QUEUE");
 		    String QUEUE_TYPE=System.getenv("TICKETBROKER_QUEUETYPE");
+			String TOPIC_TYPE=System.getenv("TICKETBROKER_TOPICTYPE");
+		    String TOPIC=System.getenv("TICKETBROKER_TOPIC");
 		    String CLIENT_ID=System.getenv("TICKETBROKER_CLIENTID");
 		    String VIRTUAL_HOST=System.getenv("TICKETBROKER_VIRTHOST");
 		    String HOSTNAME=System.getenv("TICKETBROKER_HOST");
@@ -79,6 +83,7 @@ public class TicketQueueConnection {
 			connection.start();
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			destinationQueue = new AMQQueue(QUEUE_TYPE, QUEUE_NAME);
+			destinationTopic = new AMQTopic(TOPIC_TYPE, TOPIC);
 	
 			if(trace)
 				log.info("AMQP Message Reciever successfully initialized");
@@ -89,10 +94,10 @@ public class TicketQueueConnection {
 		}
 	}
 	
-	private static synchronized TicketQueueConnection getInstance() throws JMSException
+	private static synchronized JMSBrokerConnection getInstance() throws JMSException
 	{
 		if (ticketQueueConnection==null)
-			ticketQueueConnection=new TicketQueueConnection();
+			ticketQueueConnection=new JMSBrokerConnection();
 		return ticketQueueConnection;
 	}
 	
@@ -101,12 +106,22 @@ public class TicketQueueConnection {
 		return getInstance().session;
 	}
 	
-	public static MessageConsumer createConsumer() throws JMSException
+	public static MessageConsumer createUpdateConsumer() throws JMSException
+	{
+		return getInstance().session.createConsumer(getInstance().destinationTopic);
+	}
+	
+	public static MessageProducer createUpdateProducer() throws JMSException
+	{
+		return getInstance().session.createProducer(getInstance().destinationTopic);
+	}
+	
+	public static MessageConsumer createTicketConsumer() throws JMSException
 	{
 		return getInstance().session.createConsumer(getInstance().destinationQueue);
 	}
 	
-	public static MessageProducer createProducer() throws JMSException
+	public static MessageProducer createTicketProducer() throws JMSException
 	{
 		return getInstance().session.createProducer(getInstance().destinationQueue);
 	}

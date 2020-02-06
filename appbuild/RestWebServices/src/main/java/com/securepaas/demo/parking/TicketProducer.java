@@ -7,7 +7,7 @@ import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.TextMessage;
 
-import com.securepaas.demo.dao.TicketQueueConnection;
+import com.securepaas.demo.dao.JMSBrokerConnection;
 import com.securepaas.demo.parking.object.Ticket;
 
 public class TicketProducer {
@@ -20,7 +20,7 @@ public class TicketProducer {
 	
 	private TicketProducer() throws JMSException 
 	{
-		producerQueue = TicketQueueConnection.createProducer();
+		producerQueue = JMSBrokerConnection.createTicketProducer();
 
 		if(trace)
 			log.info("AMQP Message Reciever successfully initialized");
@@ -37,7 +37,7 @@ public class TicketProducer {
 	{
 		try {
 			String messageText=ticket.serialize();
-			TextMessage txtQueueMsg = TicketQueueConnection.getSession().createTextMessage(messageText);
+			TextMessage txtQueueMsg = JMSBrokerConnection.getSession().createTextMessage(messageText);
 			getInstance().producerQueue.send(txtQueueMsg);
 			return true;
 		} catch (JMSException e) {

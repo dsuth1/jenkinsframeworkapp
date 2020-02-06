@@ -8,7 +8,7 @@ import javax.jms.MessageConsumer;
 
 import org.jboss.system.ServiceMBeanSupport;
 
-import com.securepaas.demo.dao.TicketQueueConnection;
+import com.securepaas.demo.dao.JMSBrokerConnection;
 
 /**
  * Listens for audits coming from the AMQP broker, marshalls the XML message, and stores the audits in a database.
@@ -21,7 +21,7 @@ public class AmqpTicketProcessor extends ServiceMBeanSupport implements AmqpTick
 	public void startService() {
 
 		try {
-			consumerQueue = TicketQueueConnection.createConsumer();
+			consumerQueue = JMSBrokerConnection.createTicketConsumer();
 			consumerQueue.setMessageListener(new TicketMessageListener());
 			
 		} catch (JMSException e) {
